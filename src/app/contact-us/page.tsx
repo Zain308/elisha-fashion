@@ -1,121 +1,172 @@
-"use client"
+"use client";
 
-import type React from "react"
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
 
-import { useState } from "react"
-import { MapPin, Phone, Mail } from "lucide-react"
+const ContactUs = () => {
+  const [faqs, setFaqs] = useState([
+    {
+      question: 'How can I reach customer support?',
+      answer: 'You can reach us via email at support@example.com or call us at +1 (234) 567-890.',
+      open: false,
+    },
+    {
+      question: 'What are your support hours?',
+      answer: 'Our support team is available from 9 AM to 6 PM, Monday to Friday.',
+      open: false,
+    },
+    {
+      question: 'Can I visit your office?',
+      answer: 'Yes, you can visit our office at 123 Luxury Lane, Gold City.',
+      open: false,
+    },
+  ]);
 
-export default function ContactUsPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  })
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In a real application, you would send this data to your backend
-    console.log("Form submitted:", formData)
-    alert("Thank you for your message! We will get back to you soon.")
-    setFormData({ name: "", email: "", message: "" })
-  }
+  const toggleFAQ = (index) => {
+    setFaqs(
+      faqs.map((faq, i) =>
+        i === index ? { ...faq, open: !faq.open } : faq
+      )
+    );
+  };
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-center mb-8">Contact Us</h1>
+    <div style={styles.container}>
+      <aside style={styles.sidebar}>
+        <h2 style={styles.sidebarTitle}>Contact Details</h2>
+        <p><Mail size={18} style={styles.icon} /> Email: support@example.com</p>
+        <p><Phone size={18} style={styles.icon} /> Phone: +1 (234) 567-890</p>
+        <p><MapPin size={18} style={styles.icon} /> Address: 123 Luxury Lane, Gold City</p>
+      </aside>
 
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <h2 className="text-xl font-semibold mb-4">Get In Touch</h2>
-          <p className="mb-6">
-            We'd love to hear from you. Please fill out the form and we'll get back to you as soon as possible.
-          </p>
+      <main style={styles.mainContent}>
+        <h1 style={styles.pageTitle}>Get in Touch</h1>
 
-          <div className="space-y-4">
-            <div className="flex items-start">
-              <MapPin className="w-5 h-5 mr-3 text-gray-600" />
-              <div>
-                <h3 className="font-medium">Address</h3>
-                <p className="text-gray-600">Landmark Plaza, Jail Road, Lahore, Pakistan</p>
+        <form style={styles.form}>
+          <input type="text" placeholder="Your Name" required style={styles.input} />
+          <input type="email" placeholder="Your Email" required style={styles.input} />
+          <select style={styles.input}>
+            <option>General Inquiry</option>
+            <option>Support</option>
+            <option>Feedback</option>
+          </select>
+          <textarea placeholder="Your Message" rows="5" required style={styles.textarea}></textarea>
+          <button type="submit" style={styles.button}>Send Message</button>
+        </form>
+
+        <section>
+          <h2 style={styles.faqTitle}>Frequently Asked Questions</h2>
+          {faqs.map((faq, index) => (
+            <div key={index} style={styles.faqItem}>
+              <div
+                onClick={() => toggleFAQ(index)}
+                style={{ ...styles.faqHeader, cursor: 'pointer' }}
+              >
+                <span>{faq.question}</span>
+                {faq.open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
               </div>
+              {faq.open && <p style={styles.faqAnswer}>{faq.answer}</p>}
             </div>
-
-            <div className="flex items-start">
-              <Phone className="w-5 h-5 mr-3 text-gray-600" />
-              <div>
-                <h3 className="font-medium">Phone</h3>
-                <p className="text-gray-600">Whatsapp: +92 322 6773534</p>
-              </div>
-            </div>
-
-            <div className="flex items-start">
-              <Mail className="w-5 h-5 mr-3 text-gray-600" />
-              <div>
-                <h3 className="font-medium">Email</h3>
-                <p className="text-gray-600">elisha@gmail.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="name" className="block mb-1 font-medium">
-                Full Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full border rounded p-2"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="email" className="block mb-1 font-medium">
-                E-mail
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full border rounded p-2"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="message" className="block mb-1 font-medium">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={5}
-                className="w-full border rounded p-2"
-              />
-            </div>
-
-            <button type="submit" className="bg-black text-white py-2 px-6 rounded hover:bg-gray-800 transition-colors">
-              Send Message
-            </button>
-          </form>
-        </div>
-      </div>
+          ))}
+        </section>
+      </main>
     </div>
-  )
-}
+  );
+};
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '40px',
+    padding: '40px',
+    fontFamily: 'Arial, sans-serif',
+    backgroundColor: '#f9f9f9',
+    color: '#333',
+    flexWrap: 'wrap',
+  },
+  sidebar: {
+    minWidth: '250px',
+    backgroundColor: '#111',
+    color: '#fff',
+    padding: '20px',
+    borderRadius: '12px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+  },
+  sidebarTitle: {
+    fontSize: '20px',
+    marginBottom: '10px',
+    borderBottom: '1px solid #333',
+    paddingBottom: '5px',
+  },
+  icon: {
+    verticalAlign: 'middle',
+    marginRight: '8px',
+    color: 'gold',
+  },
+  mainContent: {
+    flex: 1,
+    maxWidth: '700px',
+  },
+  pageTitle: {
+    fontSize: '32px',
+    fontWeight: 'bold',
+    marginBottom: '30px',
+    color: '#111',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '15px',
+    marginBottom: '50px',
+  },
+  input: {
+    padding: '12px',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+    fontSize: '16px',
+    outline: 'none',
+  },
+  textarea: {
+    padding: '12px',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+    fontSize: '16px',
+    resize: 'vertical',
+    outline: 'none',
+  },
+  button: {
+    backgroundColor: 'black',
+    color: 'white',
+    padding: '14px',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '16px',
+    cursor: 'pointer',
+  },
+  faqTitle: {
+    fontSize: '24px',
+    fontWeight: 'bold',
+    marginBottom: '20px',
+  },
+  faqItem: {
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    padding: '15px',
+    marginBottom: '10px',
+    backgroundColor: '#fff',
+  },
+  faqHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    fontWeight: 'bold',
+  },
+  faqAnswer: {
+    marginTop: '10px',
+    fontSize: '15px',
+    color: '#555',
+  },
+};
+
+export default ContactUs;

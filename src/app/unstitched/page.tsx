@@ -1,162 +1,191 @@
+"use client"
+
+import { useState } from "react"
+import { ChevronDown, ChevronUp, Filter } from "lucide-react"
+
 export default function UnstitchedPage() {
+  const [filterOpen, setFilterOpen] = useState(false)
+  const [selectedFabric, setSelectedFabric] = useState("all")
+
   const unstitchedProducts = [
     {
       id: 1,
       name: "Fabric 3 Piece Suit",
       description: "Printed Embroidered Pima Lawn",
-      price: "5,390",
+      price: 5390,
       image:
-        "https://images.unsplash.com/photo-1583391733956-6c78276477e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://prettyrobe.com/cdn/shop/files/PR-2688-1-copy.webp?v=1734525533&width=533",
+      fabric: "lawn",
+      category: "3pcs",
     },
     {
       id: 2,
       name: "Fabric 2 Piece",
       description: "Printed Embroidered Cambric",
-      price: "3,590",
+      price: 3590,
       image:
-        "https://sjc.microlink.io/rwraWV1HtKS44EmqXOg8R8Zeu1KcsLpGWJXEwlDm3UQ2JzGznHKR29snlV_vMUy4eLC1tU51YqJ2k64i3iQYew.jpeg",
+        "https://shop.aghanoorofficial.com/cdn/shop/files/WhatsAppImage2024-11-06at19.33.16.jpg?v=1730903823",
+      fabric: "cotton",
+      category: "2pcs",
     },
     {
       id: 3,
       name: "Lawn Collection",
       description: "Digital Print with Dupatta",
-      price: "4,190",
-      image: "https://images.unsplash.com/photo-1564257577-4a5e4b1b8b1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      price: 4190,
+      image:
+        "https://ramsha.pk/cdn/shop/files/DSF2036.jpg?v=1736926763",
+      fabric: "lawn",
+      category: "3pcs",
     },
     {
       id: 4,
       name: "Cotton Net Suit",
       description: "Unstitched Premium Quality",
-      price: "2,890",
+      price: 2890,
       image:
-        "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://www.limelight.pk/cdn/shop/files/LP052ST-XSL-582_6_2PieceCottonNetSuit-Embellished_Pret.jpg?v=1735564138&width=1946",
+      fabric: "cotton",
+      category: "2pcs",
     },
     {
       id: 5,
       name: "Silk Collection",
       description: "Luxury Unstitched Fabric",
-      price: "6,200",
+      price: 6200,
       image:
-        "https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://mahekamil.pk/cdn/shop/products/9A-1-min.jpg?v=1679859104",
+      fabric: "silk",
+      category: "3pcs",
     },
     {
       id: 6,
       name: "Organza Set",
       description: "Premium Unstitched Material",
-      price: "4,500",
-      image:
-        "https://sjc.microlink.io/rwraWV1HtKS44EmqXOg8R8Zeu1KcsLpGWJXEwlDm3UQ2JzGznHKR29snlV_vMUy4eLC1tU51YqJ2k64i3iQYew.jpeg",
+      price: 4500,
+      image: "https://www.zainabjees.com/cdn/shop/files/6_d6c67138-8aee-4987-8921-a187cf468f38a.jpg?v=1736173841&width=600",
+      fabric: "organza",
+      category: "2pcs",
     },
   ]
 
+  const fabrics = [
+    { id: "all", name: "All Fabrics" },
+    { id: "lawn", name: "Lawn" },
+    { id: "cotton", name: "Cotton" },
+    { id: "silk", name: "Silk" },
+    { id: "organza", name: "Organza" },
+  ]
+
+  const filteredProducts =
+    selectedFabric === "all"
+      ? unstitchedProducts
+      : unstitchedProducts.filter((product) => product.fabric === selectedFabric)
+
   return (
-    <div className="container py-3">
-      <div className="text-center mb-3">
-        <h1 className="section-title">WOMEN'S</h1>
-        <h2 className="text-2xl font-medium">Unstitched Suit</h2>
-        <p style={{ color: "#666", maxWidth: "600px", margin: "0 auto", lineHeight: "1.6" }}>
-          Elisha offers a vast selection of women's clothing to shop. Each season finds a careful assortment of clothing
-          no matter the season, trend-driven and classic pieces are available. Elisha is committed to helping shoppers
-          be their most stylish selves.
-        </p>
+    <div className="women-page">
+      {/* Hero Section */}
+      <div className="women-hero">
+        <div className="women-hero-content">
+          <h1>UNSTITCHED COLLECTION</h1>
+          <p>
+            Premium unstitched fabrics for custom tailoring. Choose from our finest selection of lawn, cotton, silk, and
+            organza materials.
+          </p>
+        </div>
       </div>
 
-      <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
-        {/* Filter Sidebar */}
-        <div style={{ width: "250px", flexShrink: 0 }}>
-          <div className="bg-gray p-2" style={{ borderRadius: "10px" }}>
-            <h3 className="font-bold mb-2">Filter</h3>
+      <div className="container">
+        <div className="women-content">
+          {/* Mobile Filter Toggle */}
+          <button className="mobile-filter-toggle" onClick={() => setFilterOpen(!filterOpen)}>
+            <Filter size={20} />
+            Filter & Sort
+            {filterOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+          </button>
 
-            <div className="mb-2">
-              <h4 className="font-medium mb-1">Categories</h4>
-              <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
-                <button className="btn btn-secondary btn-sm">1 PCS</button>
-                <button className="btn btn-sm" style={{ backgroundColor: "#f5f5f5" }}>
-                  2 PCS
-                </button>
-                <button className="btn btn-sm" style={{ backgroundColor: "#f5f5f5" }}>
-                  3 PCS
-                </button>
+          <div className="women-layout">
+            {/* Filter Sidebar */}
+            <div className={`filter-sidebar ${filterOpen ? "open" : ""}`}>
+              <div className="filter-section">
+                <h3>Filter</h3>
+
+                <div className="filter-group">
+                  <h4>Fabric Type</h4>
+                  <div className="category-options">
+                    {fabrics.map((fabric) => (
+                      <button
+                        key={fabric.id}
+                        className={`category-btn ${selectedFabric === fabric.id ? "selected" : ""}`}
+                        onClick={() => setSelectedFabric(fabric.id)}
+                      >
+                        {fabric.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="filter-group">
+                  <h4>Categories</h4>
+                  <div className="size-options">
+                    <button className="size-btn">1 PCS</button>
+                    <button className="size-btn">2 PCS</button>
+                    <button className="size-btn">3 PCS</button>
+                  </div>
+                </div>
+
+                <div className="filter-group">
+                  <h4>Price Range</h4>
+                  <div className="price-range">
+                    <div className="price-labels">
+                      <span>Rs. 2,000</span>
+                      <span>Rs. 10,000</span>
+                    </div>
+                    <input type="range" min="2000" max="10000" className="price-slider" />
+                  </div>
+                </div>
+
+                <div className="filter-group">
+                  <h4>Sort By</h4>
+                  <select className="sort-select">
+                    <option>Best Selling</option>
+                    <option>Newest First</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                  </select>
+                </div>
               </div>
             </div>
 
-            <div className="mb-2">
-              <h4 className="font-medium mb-1">Fabric Type</h4>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-                {["Lawn", "Cotton", "Silk", "Organza", "Net"].map((fabric) => (
-                  <label key={fabric} style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                    <input type="checkbox" />
-                    <span className="text-sm">{fabric}</span>
-                  </label>
+            {/* Products Grid */}
+            <div className="products-section">
+              <div className="products-header">
+                <h2>Unstitched Products ({filteredProducts.length})</h2>
+              </div>
+
+              <div className="products-grid">
+                {filteredProducts.map((product) => (
+                  <div key={product.id} className="product-card">
+                    <div className="product-image">
+                      <img src={product.image || "/placeholder.svg"} alt={product.name} />
+                    </div>
+
+                    <div className="product-info">
+                      <h3>{product.name}</h3>
+                      <p>{product.description}</p>
+                      <div className="product-price">Rs. {product.price.toLocaleString()}</div>
+                      <button className="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                  </div>
                 ))}
               </div>
-            </div>
 
-            <div className="mb-2">
-              <h4 className="font-medium mb-1">Price Range</h4>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-                <span className="text-sm">Rs. 2,000</span>
-                <span className="text-sm">Rs. 10,000</span>
+              {/* Pagination */}
+              <div className="pagination">
+                <button className="page-btn active">1</button>
+                <button className="page-btn">2</button>
+                <button className="page-btn">3</button>
               </div>
-              <input type="range" min="2000" max="10000" style={{ width: "100%" }} />
-            </div>
-
-            <div className="mb-2">
-              <h4 className="font-medium mb-1">Sort By</h4>
-              <select style={{ width: "100%", padding: "0.5rem", border: "1px solid #ddd", borderRadius: "5px" }}>
-                <option>Best Selling</option>
-                <option>Newest First</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Products Grid */}
-        <div style={{ flex: 1 }}>
-          <div className="grid grid-3 gap-2">
-            {unstitchedProducts.map((product) => (
-              <div key={product.id} className="product-card">
-                <div className="product-image">
-                  <img
-                    src={product.image || "/placeholder.svg"}
-                    alt={product.name}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                    }}
-                  />
-                </div>
-
-                <div className="product-info">
-                  <h3 className="product-title">{product.name}</h3>
-                  <p className="product-description">{product.description}</p>
-                  <div className="product-price">Rs. {product.price}</div>
-                  <button className="btn btn-primary btn-full">Buy Now</button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Pagination */}
-          <div className="text-center mt-3">
-            <div style={{ display: "inline-flex", gap: "0.5rem" }}>
-              <button className="btn btn-secondary">1</button>
-              <button className="btn" style={{ backgroundColor: "#f5f5f5" }}>
-                2
-              </button>
-              <button className="btn" style={{ backgroundColor: "#f5f5f5" }}>
-                3
-              </button>
-              <button className="btn" style={{ backgroundColor: "#f5f5f5" }}>
-                4
-              </button>
-              <button className="btn" style={{ backgroundColor: "#f5f5f5" }}>
-                5
-              </button>
             </div>
           </div>
         </div>

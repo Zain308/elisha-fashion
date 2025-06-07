@@ -12,7 +12,7 @@ export default function Footer() {
 
             <h3 style={{ marginTop: "2rem" }}>FOR ASSISTANCE</h3>
             <p>Whatsapp: 0322 6773534</p>
-            <p>Email: elisha@gmail.com</p>
+            <p>Email: zain@gmail.com</p>
           </div>
 
           {/* Company */}
@@ -67,7 +67,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Elisha Fashion Studio. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Zain Fashion Studio. All rights reserved.</p>
         </div>
       </div>
     </footer>

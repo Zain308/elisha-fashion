@@ -1,10 +1,10 @@
 export default function Home() {
   return (
-    <div>
+    <div className="homepage">
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <h1>Elisha Fashion Studio</h1>
+          <h1>Zain Fashion Studio</h1>
           <p>Discover the latest trends in women's fashion. Elegant designs for every occasion.</p>
           <div className="hero-buttons">
             <a href="/stitched" className="shop-btn primary">
@@ -25,7 +25,7 @@ export default function Home() {
             <div className="product-card">
               <div className="product-img">
                 <img
-                  src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  src="https://iznikfashions.com/cdn/shop/files/131_8047a46b-bc20-433e-8719-a645b6f24c6d.png?v=1746065919&width=900"
                   alt="Embroidered Silk Dress"
                 />
                 <span className="badge new">NEW</span>
@@ -41,7 +41,7 @@ export default function Home() {
             <div className="product-card">
               <div className="product-img">
                 <img
-                  src="https://images.unsplash.com/photo-1583391733956-6c78276477e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  src="https://i.pinimg.com/736x/cc/15/b9/cc15b921a507a1ed42c87a8fd4022f79.jpg"
                   alt="Classic Kameez"
                 />
                 <span className="badge new">NEW</span>
@@ -57,7 +57,7 @@ export default function Home() {
             <div className="product-card">
               <div className="product-img">
                 <img
-                  src="https://images.unsplash.com/photo-1564257577-4a5e4b1b8b1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  src="https://i.pinimg.com/originals/40/b8/74/40b874a4118483466b672fdee0965d0f.jpg"
                   alt="Designer Kurta"
                 />
                 <span className="badge new">NEW</span>
@@ -118,7 +118,7 @@ export default function Home() {
 
             <a href="/category/abayas" className="category-card">
               <img
-                src="https://images.unsplash.com/photo-1506629905607-d405b7a30db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="https://blackcamels.com.pk/cdn/shop/products/MIZKA-CLASSIC-MAXI-ABAYA2-1.jpg?v=1748963407"
                 alt="Abayas"
               />
               <div className="category-overlay">
@@ -129,10 +129,7 @@ export default function Home() {
             </a>
 
             <a href="/category/desi-wear" className="category-card">
-              <img
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt="Desi Wear"
-              />
+              <img src="https://i.pinimg.com/736x/bc/d9/0b/bcd90ba9f7216e0878c8262439061c1f.jpg" alt="Desi Wear" />
               <div className="category-overlay">
                 <div className="discount">70% OFF</div>
                 <h3>DESI WEAR</h3>
@@ -148,7 +145,7 @@ export default function Home() {
           <div className="fabric-grid">
             <a href="/fabric/silk" className="fabric-card">
               <img
-                src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                src="https://www.mushq.pk/cdn/shop/files/MPLSU240102-1.jpg?v=1703242637&width=493"
                 alt="Silk Fabric"
               />
               <div className="fabric-overlay">
@@ -170,7 +167,7 @@ export default function Home() {
 
             <a href="/fabric/cotton" className="fabric-card">
               <img
-                src="https://images.unsplash.com/photo-1564257577-4a5e4b1b8b1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkPjnqHUIJuI7L92ExjonZhKwBang46fUVw&s"
                 alt="Cotton Fabric"
               />
               <div className="fabric-overlay">
@@ -181,7 +178,7 @@ export default function Home() {
 
             <a href="/fabric/net" className="fabric-card">
               <img
-                src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                src="https://easternfashion.pk/cdn/shop/files/22_6696dc19-e1f8-41af-ac5f-4037919606b8_800x.jpg?v=1724509487"
                 alt="Net Fabric"
               />
               <div className="fabric-overlay">
@@ -192,7 +189,7 @@ export default function Home() {
 
             <a href="/fabric/lawn" className="fabric-card">
               <img
-                src="https://images.unsplash.com/photo-1583391733956-6c78276477e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                src="https://easternfashion.pk/cdn/shop/files/MARIA_B_luxery_lawn_collection_-_Design_No_1678_-_Eastern_Fashion.jpg?v=1739285039"
                 alt="Lawn Fabric"
               />
               <div className="fabric-overlay">
@@ -206,23 +203,49 @@ export default function Home() {
         {/* Featured Collection */}
         <section className="featured-section">
           <h2 className="section-title">FEATURED COLLECTION</h2>
-          <div className="featured-banner">
-            <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-CkzkyZXDoBggbRz4kXI8H9jrulg7dw.png"
-              alt="Featured Collection"
-            />
-            <div className="featured-content">
-              <h3>Exclusive Pink Collection</h3>
-              <p>Discover our latest pink joggers and casual wear collection</p>
-              <a href="/featured" className="featured-btn">
-                Shop Collection
-              </a>
+          <div className="featured-banner-grid">
+            <div className="featured-banner main-banner">
+              <img
+                src="https://media.istockphoto.com/id/831656828/photo/luxury-clothing-store-for-men.jpg?s=612x612&w=0&k=20&c=r9vD1Nvv_W0uco8RN7jPKx2HJ7zxj3ISrnbP5XhGszg="
+                alt="Featured Collection"
+              />
+              <div className="featured-content">
+                <h3>Exclusive Collection</h3>
+                <p>Discover our latest casual wear collection with premium comfort and style</p>
+                <a href="/featured" className="featured-btn">
+                  Shop Collection
+                </a>
+              </div>
+            </div>
+
+            <div className="featured-side-banners">
+              <div className="featured-banner side-banner">
+                <img
+                  src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Premium Silk"
+                />
+                <div className="featured-content-small">
+                  <h4>Premium Silk</h4>
+                  <span className="shop-link">Shop Now →</span>
+                </div>
+              </div>
+
+              <div className="featured-banner side-banner">
+                <img
+                  src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Designer Wear"
+                />
+                <div className="featured-content-small">
+                  <h4>Designer Wear</h4>
+                  <span className="shop-link">Shop Now →</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Top Sales */}
-        <section className="product-section">
+        <section className="top-sales-section">
           <h2 className="section-title">TOP SALES</h2>
           <div className="product-grid">
             <div className="product-card">

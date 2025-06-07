@@ -1,13 +1,24 @@
+"use client"
+
+import type React from "react"
+
 import Image from "next/image"
 import Link from "next/link"
 import type { Product } from "@/lib/data"
-import Button from "@/components/ui/Button"
+import { useCart } from "../../context/CartContext"
 
 interface ProductCardProps {
   product: Product
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { addToCart } = useCart()
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault()
+    addToCart(product)
+  }
+
   return (
     <div className="group">
       <div className="relative overflow-hidden">
@@ -46,9 +57,9 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
           </p>
         </div>
-        <Button variant="primary" size="sm" className="w-full mt-2">
+        <button onClick={handleAddToCart} className="buy-btn w-full mt-2">
           Buy Now
-        </Button>
+        </button>
       </div>
     </div>
   )

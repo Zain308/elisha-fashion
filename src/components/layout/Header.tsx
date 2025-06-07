@@ -3,9 +3,11 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Menu, X, ShoppingBag } from "lucide-react"
+import { useCart } from "../../context/CartContext"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { cartCount } = useCart()
 
   return (
     <header className="header">
@@ -16,7 +18,7 @@ export default function Header() {
         <div className="header-content">
           {/* Logo */}
           <Link href="/" className="logo">
-            Elisha
+            Zain
             <span className="logo-subtitle">fashion studio</span>
           </Link>
 
@@ -39,7 +41,7 @@ export default function Header() {
           {/* Cart Icon */}
           <Link href="/cart" className="cart-icon">
             <ShoppingBag size={24} />
-            <span style={{ marginLeft: "0.5rem" }}>0</span>
+            <span className="cart-count">{cartCount}</span>
           </Link>
         </div>
       </div>
