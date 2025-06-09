@@ -16,7 +16,7 @@ export default function StitchedPage() {
       originalPrice: 7000,
       discount: 22,
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfIPeWd9LWKREkzcZo5QfKPah5JM3RGjSWGw&s",
+        "https://fashionflare.pk/cdn/shop/files/AIZ00509_d58b55fa-079c-45d2-84c6-82af7c13a042.webp?v=1729330531",
       category: "3pcs",
       isNew: true,
     },
@@ -26,7 +26,7 @@ export default function StitchedPage() {
       description: "Printed Cambric Cotton",
       price: 2690,
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3poOoKpyhTycRi-lLjjN6MitIwnDsXFZP9w&s",
+        "https://nameerabridal.com/wp-content/uploads/2025/02/4-3.jpg",
       category: "2pcs",
       isNew: true,
     },
@@ -57,7 +57,7 @@ export default function StitchedPage() {
       originalPrice: 12000,
       discount: 29,
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQensqIKr5P0SMFUNOC9HT9XlJ-yJopw47VlA&s",
+        "https://www.faizasaqlain.pk/cdn/shop/products/1_8b6ebc25-ff55-4d3b-8da6-0fc15311e392_360x.jpg?v=1661153170",
       category: "3pcs",
     },
     {
@@ -65,7 +65,7 @@ export default function StitchedPage() {
       name: "Casual Wear",
       description: "Comfortable Daily Collection",
       price: 2500,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTovXtkzs_Fah5vNzEjZYMK5UwO21vqONQaLw&s",
+      image: "https://shopatvelour.com/cdn/shop/files/DSC5734.jpg?v=1738239795&width=533",
       category: "2pcs",
     },
   ]

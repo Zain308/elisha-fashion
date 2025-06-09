@@ -1,8 +1,24 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronDown, ChevronUp, Filter } from "lucide-react"
+import { ChevronDown, ChevronUp, Filter, Heart, Eye } from "lucide-react"
 import { useCart } from "../../context/CartContext"
+import Link from "next/link"
+
+interface Product {
+  id: string
+  name: string
+  description: string
+  price: number
+  originalPrice?: number
+  discount?: number
+  image: string
+  category: string
+  type: string
+  fabric: string
+  isNew?: boolean
+  isTopSelling?: boolean
+}
 
 export default function WomenPage() {
   const [filterOpen, setFilterOpen] = useState(false)
@@ -14,7 +30,7 @@ export default function WomenPage() {
 
   const productsPerPage = 8
 
-  const womenProducts = [
+  const womenProducts: Product[] = [
     {
       id: "w1",
       name: "Embroidered Silk Dress",
@@ -22,8 +38,7 @@ export default function WomenPage() {
       price: 5490,
       originalPrice: 7000,
       discount: 22,
-      image:
-        "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "https://fashionflare.pk/cdn/shop/files/AIZ00509_d58b55fa-079c-45d2-84c6-82af7c13a042.webp?v=1729330531",
       category: "women",
       type: "stitched",
       fabric: "Silk",
@@ -34,8 +49,7 @@ export default function WomenPage() {
       name: "Classic Kameez",
       description: "Printed Cambric Cotton",
       price: 2690,
-      image:
-        "https://images.unsplash.com/photo-1506629905607-d405b7a30db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "https://faashwear.com/wp-content/uploads/2025/05/IMG_0137.jpeg",
       category: "women",
       type: "stitched",
       fabric: "Cotton",
@@ -46,8 +60,7 @@ export default function WomenPage() {
       name: "Designer Kurta",
       description: "Hand-woven Cotton Blend",
       price: 2190,
-      image:
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "https://i.pinimg.com/originals/40/b8/74/40b874a4118483466b672fdee0965d0f.jpg",
       category: "women",
       type: "stitched",
       fabric: "Cotton",
@@ -59,7 +72,7 @@ export default function WomenPage() {
       description: "Premium Cotton with Dupatta",
       price: 3590,
       image:
-        "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://i0.wp.com/www.hamroshringar.com/wp-content/uploads/2023/12/ladies-formal-suit-cream-3-pcs-set.webp?fit=600%2C900&ssl=1",
       category: "women",
       type: "stitched",
       fabric: "Cotton",
@@ -69,7 +82,8 @@ export default function WomenPage() {
       name: "Cotton Joggers",
       description: "Comfortable Daily Wear",
       price: 1890,
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-CkzkyZXDoBggbRz4kXI8H9jrulg7dw.png",
+      image:
+        "https://www.teentopsofficial.com/cdn/shop/products/image_0d4999c2-03be-46f8-9e11-491644781b8a.jpg?v=1654025397",
       category: "women",
       type: "stitched",
       fabric: "Cotton",
@@ -83,7 +97,7 @@ export default function WomenPage() {
       originalPrice: 6000,
       discount: 30,
       image:
-        "https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://rangolistore.pk/cdn/shop/files/batiqzink_2117bcca-5251-4fb9-b585-f75e47c204d3.jpg?v=1737198562&width=800",
       category: "women",
       type: "unstitched",
       fabric: "Lawn",
@@ -95,8 +109,7 @@ export default function WomenPage() {
       price: 8500,
       originalPrice: 12000,
       discount: 29,
-      image:
-        "https://images.unsplash.com/photo-1583391733956-6c78276477e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "https://www.farahtalibaziz.com.pk/images/thumbs/0019020_asel-aqua-lehenga-choli_700.jpeg",
       category: "women",
       type: "stitched",
       fabric: "Silk",
@@ -106,7 +119,7 @@ export default function WomenPage() {
       name: "Casual Wear Set",
       description: "Comfortable Daily Collection",
       price: 2500,
-      image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "https://i.pinimg.com/736x/1a/83/c4/1a83c4d58d9641377d811675274ce4f3.jpg",
       category: "women",
       type: "stitched",
       fabric: "Cotton",
@@ -119,33 +132,55 @@ export default function WomenPage() {
     setSelectedSizes((prev) => (prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]))
   }
 
+  // Apply filters and sorting
+  const filteredProducts = womenProducts
+    .filter((product) => product.price >= priceRange[0] && product.price <= priceRange[1])
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "price-low":
+          return a.price - b.price
+        case "price-high":
+          return b.price - a.price
+        case "newest":
+          return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0)
+        case "discount":
+          return (b.discount || 0) - (a.discount || 0)
+        default:
+          return (b.isTopSelling ? 1 : 0) - (a.isTopSelling ? 1 : 0)
+      }
+    })
+
   // Calculate pagination
   const indexOfLastProduct = currentPage * productsPerPage
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage
-  const currentProducts = womenProducts.slice(indexOfFirstProduct, indexOfLastProduct)
-  const totalPages = Math.ceil(womenProducts.length / productsPerPage)
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage)
 
-  const handleAddToCart = (product: any) => {
-    addToCart(product)
+  const handleAddToCart = (product: Product) => {
+    addToCart({ ...product, quantity: 1 })
   }
 
   return (
     <div className="women-page">
       {/* Hero Section */}
-      <div className="women-hero">
+      <section className="women-hero">
         <div className="women-hero-content">
-          <h1>WOMEN'S COLLECTION</h1>
+          <h1>Women's Collection</h1>
           <p>
-            Zain offers a vast selection of women's clothing to shop. Each season finds a careful assortment of clothing
-            no matter the season, trend-driven and classic pieces are available.
+            Discover Zain Fashion Studio's exquisite women's collection featuring premium fabrics, elegant designs, and
+            contemporary styles. From traditional wear to modern fashion, find your perfect outfit for every occasion.
           </p>
         </div>
-      </div>
+      </section>
 
       <div className="container">
         <div className="women-content">
           {/* Mobile Filter Toggle */}
-          <button className="mobile-filter-toggle" onClick={() => setFilterOpen(!filterOpen)}>
+          <button
+            className="mobile-filter-toggle"
+            onClick={() => setFilterOpen(!filterOpen)}
+            aria-label={filterOpen ? "Close filters" : "Open filters"}
+          >
             <Filter size={20} />
             Filter & Sort
             {filterOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
@@ -153,7 +188,7 @@ export default function WomenPage() {
 
           <div className="women-layout">
             {/* Filter Sidebar */}
-            <div className={`filter-sidebar ${filterOpen ? "open" : ""}`}>
+            <aside className={`filter-sidebar ${filterOpen ? "open" : ""}`}>
               <div className="filter-section">
                 <h3>Filter</h3>
 
@@ -165,6 +200,7 @@ export default function WomenPage() {
                         key={size}
                         className={`size-btn ${selectedSizes.includes(size) ? "selected" : ""}`}
                         onClick={() => toggleSize(size)}
+                        aria-label={`Select size ${size}`}
                       >
                         {size}
                       </button>
@@ -186,13 +222,19 @@ export default function WomenPage() {
                       value={priceRange[1]}
                       onChange={(e) => setPriceRange([priceRange[0], Number.parseInt(e.target.value)])}
                       className="price-slider"
+                      aria-label="Adjust maximum price"
                     />
                   </div>
                 </div>
 
                 <div className="filter-group">
                   <h4>Sort By</h4>
-                  <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="sort-select">
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="sort-select"
+                    aria-label="Sort products"
+                  >
                     <option value="best-selling">Best Selling</option>
                     <option value="newest">Newest First</option>
                     <option value="price-low">Price: Low to High</option>
@@ -201,36 +243,54 @@ export default function WomenPage() {
                   </select>
                 </div>
               </div>
-            </div>
+            </aside>
 
             {/* Products Grid */}
-            <div className="products-section">
+            <section className="products-section">
               <div className="products-header">
-                <h2>All Products ({womenProducts.length})</h2>
+                <h2>All Products ({filteredProducts.length})</h2>
               </div>
 
               <div className="products-grid">
                 {currentProducts.map((product) => (
                   <div key={product.id} className="product-card">
-                    <div className="product-image">
-                      <a href={`/product/${product.id}`}>
+                    <div className="product-img">
+                      <Link href={`/product/${product.id}`}>
                         <img src={product.image || "/placeholder.svg"} alt={product.name} />
-                      </a>
-                      {product.discount && <div className="product-badge sale">{product.discount}% OFF</div>}
-                      {product.isNew && <div className="product-badge new">NEW</div>}
-                      {product.isTopSelling && !product.isNew && <div className="product-badge trending">TRENDING</div>}
+                      </Link>
+
+                      {/* Product Actions Overlay */}
+                      <div className="product-actions">
+                        <Link href={`/product/${product.id}`} className="action-btn">
+                          <Eye size={18} />
+                        </Link>
+                        <button className="action-btn" aria-label="Add to wishlist">
+                          <Heart size={18} />
+                        </button>
+                      </div>
+
+                      {/* Badges */}
+                      {product.discount && <span className="badge sale">{product.discount}% OFF</span>}
+                      {product.isNew && <span className="badge new">NEW</span>}
+                      {product.isTopSelling && !product.isNew && <span className="badge trending">TRENDING</span>}
                     </div>
 
-                    <div className="product-info">
-                      <h3>{product.name}</h3>
+                    <div className="product-details">
+                      <h3>
+                        <Link href={`/product/${product.id}`}>{product.name}</Link>
+                      </h3>
                       <p>{product.description}</p>
-                      <div className="product-price">
+                      <div className="price">
                         Rs. {product.price.toLocaleString()}
                         {product.originalPrice && (
                           <span className="original-price">Rs. {product.originalPrice.toLocaleString()}</span>
                         )}
                       </div>
-                      <button className="add-to-cart-btn" onClick={() => handleAddToCart(product)}>
+                      <button
+                        className="add-to-cart-btn"
+                        onClick={() => handleAddToCart(product)}
+                        aria-label={`Add ${product.name} to cart`}
+                      >
                         Add to Cart
                       </button>
                     </div>
@@ -239,18 +299,21 @@ export default function WomenPage() {
               </div>
 
               {/* Pagination */}
-              <div className="pagination">
-                {[...Array(totalPages)].map((_, index) => (
-                  <button
-                    key={index}
-                    className={`page-btn ${currentPage === index + 1 ? "active" : ""}`}
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
-              </div>
-            </div>
+              {totalPages > 1 && (
+                <div className="pagination">
+                  {[...Array(totalPages)].map((_, index) => (
+                    <button
+                      key={index}
+                      className={`page-btn ${currentPage === index + 1 ? "active" : ""}`}
+                      onClick={() => setCurrentPage(index + 1)}
+                      aria-label={`Go to page ${index + 1}`}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </section>
           </div>
         </div>
       </div>
